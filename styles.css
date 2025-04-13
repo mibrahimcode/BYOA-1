@@ -38,7 +38,7 @@ body {
     padding: 0.5rem;
     transition: transform 0.3s ease;
 }
-
+ 
 .reset-icon:hover {
     transform: rotate(180deg);
 }
@@ -92,6 +92,12 @@ button {
     background-color: #ed8936;
     color: white;
     box-shadow: 0 4px 6px rgba(237, 137, 54, 0.2);
+}
+
+#add-time {
+    background-color: #48bb78;
+    color: white;
+    box-shadow: 0 4px 6px rgba(72, 187, 120, 0.2);
 }
 
 .modes {

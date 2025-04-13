@@ -7,6 +7,7 @@ const timeDisplay = document.querySelector('.time-display');
 const startButton = document.getElementById('start');
 const pauseButton = document.getElementById('pause');
 const resetButton = document.getElementById('reset');
+const addTimeButton = document.getElementById('add-time');
 const modeButtons = document.querySelectorAll('.mode-btn');
 
 // Initialize timer with Pomodoro mode (25 minutes)
@@ -53,10 +54,18 @@ function resetTimer() {
     initializeTimer(minutes);
 }
 
+function addFiveMinutes() {
+    if (isRunning) {
+        timeLeft += 5 * 60; // Add 5 minutes in seconds
+        updateDisplay();
+    }
+}
+
 // Event Listeners
 startButton.addEventListener('click', startTimer);
 pauseButton.addEventListener('click', pauseTimer);
 resetButton.addEventListener('click', resetTimer);
+addTimeButton.addEventListener('click', addFiveMinutes);
 
 modeButtons.forEach(button => {
     button.addEventListener('click', () => {
