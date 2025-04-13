@@ -23,6 +23,24 @@ body {
     backdrop-filter: blur(10px);
     max-width: 500px;
     width: 90%;
+    position: relative;
+}
+
+.reset-icon {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    color: #f56565;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+.reset-icon:hover {
+    transform: rotate(180deg);
 }
 
 h1 {
@@ -74,12 +92,6 @@ button {
     background-color: #ed8936;
     color: white;
     box-shadow: 0 4px 6px rgba(237, 137, 54, 0.2);
-}
-
-#reset {
-    background-color: #f56565;
-    color: white;
-    box-shadow: 0 4px 6px rgba(245, 101, 101, 0.2);
 }
 
 .modes {
