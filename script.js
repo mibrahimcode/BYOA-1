@@ -2,6 +2,7 @@ let timeLeft;
 let timerId;
 let isRunning = false;
 let currentMode = 'pomodoro';
+let currentFocus = '';
 
 const timeDisplay = document.querySelector('.time-display');
 const startButton = document.getElementById('start');
@@ -9,6 +10,33 @@ const pauseButton = document.getElementById('pause');
 const resetButton = document.getElementById('reset');
 const addTimeButton = document.getElementById('add-time');
 const modeButtons = document.querySelectorAll('.mode-btn');
+const focusModal = document.getElementById('focus-modal');
+const focusInput = document.getElementById('focus-input');
+const setFocusButton = document.getElementById('set-focus');
+const currentFocusDisplay = document.getElementById('current-focus');
+
+// Show focus input modal
+function showFocusModal() {
+    focusModal.style.display = 'flex';
+    focusInput.focus();
+}
+
+// Hide focus input modal
+function hideFocusModal() {
+    focusModal.style.display = 'none';
+    focusInput.value = '';
+}
+
+// Set focus and update display
+function setFocus() {
+    const focusText = focusInput.value.trim();
+    if (focusText) {
+        currentFocus = focusText;
+        currentFocusDisplay.textContent = `Focus: ${currentFocus}`;
+        currentFocusDisplay.classList.add('show');
+        hideFocusModal();
+    }
+}
 
 // Initialize timer with Pomodoro mode (25 minutes)
 function initializeTimer(minutes) {
@@ -26,6 +54,10 @@ function updateDisplay() {
 
 function startTimer() {
     if (!isRunning) {
+        if (currentMode === 'pomodoro' && !currentFocus) {
+            showFocusModal();
+            return;
+        }
         isRunning = true;
         timerId = setInterval(() => {
             if (timeLeft > 0) {
@@ -35,6 +67,10 @@ function startTimer() {
                 clearInterval(timerId);
                 isRunning = false;
                 alert('Time is up!');
+                if (currentMode === 'pomodoro') {
+                    currentFocus = '';
+                    currentFocusDisplay.classList.remove('show');
+                }
             }
         }, 1000);
     }
@@ -66,6 +102,14 @@ startButton.addEventListener('click', startTimer);
 pauseButton.addEventListener('click', pauseTimer);
 resetButton.addEventListener('click', resetTimer);
 addTimeButton.addEventListener('click', addFiveMinutes);
+setFocusButton.addEventListener('click', setFocus);
+
+// Handle Enter key in focus input
+focusInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        setFocus();
+    }
+});
 
 modeButtons.forEach(button => {
     button.addEventListener('click', () => {
@@ -76,6 +120,15 @@ modeButtons.forEach(button => {
         // Reset timer with new mode
         const minutes = parseInt(button.dataset.time);
         initializeTimer(minutes);
+        
+        // Update current mode
+        currentMode = button.textContent.toLowerCase().includes('break') ? 'break' : 'pomodoro';
+        
+        // Clear focus when switching to break mode
+        if (currentMode === 'break') {
+            currentFocus = '';
+            currentFocusDisplay.classList.remove('show');
+        }
     });
 });
 

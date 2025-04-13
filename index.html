@@ -12,6 +12,7 @@
         <button id="reset" class="reset-icon"><i class="fas fa-redo"></i></button>
         <h1>Pomodoro Timer</h1>
         <div class="timer">
+            <div id="current-focus" class="current-focus"></div>
             <div class="time-display">25:00</div>
             <div class="controls">
                 <button id="start">Start</button>
@@ -25,6 +26,16 @@
             </div>
         </div>
     </div>
+
+    <!-- Focus Input Modal -->
+    <div id="focus-modal" class="modal">
+        <div class="modal-content">
+            <h2>What would you like to focus on?</h2>
+            <input type="text" id="focus-input" placeholder="Enter your focus..." maxlength="50">
+            <button id="set-focus">Set Focus</button>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>  
